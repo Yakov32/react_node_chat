@@ -11,20 +11,22 @@ exports.login = async (req, res) => {
       const email = req.body.email;
       const password = req.body.password;
 
-      const user = await User.findOne({
+      let user = await User.findOne({
          where: {
             email
          }
       })
 
-      if(!user) res.status(404).json({message: 'user not found'});
+      if(!user) return res.status(404).json({message: 'user not found'});
 
       if(!password || !bcrypt.compareSync(password, user.password)) {
          return res.status(404).json({message: 'wrong password'})
       }
       
+      user = user.toJSON();
+      user.token = generateJWT(user);
       
-      res.send(generateJWT(user.get({raw: true})));
+      res.send(user);
 
    } catch (error) {
       console.log(error);
@@ -35,7 +37,10 @@ exports.register = async (req, res) => {
 
    try {
       let user = await User.create(req.body);
+      user = user.toJSON();
       user.token = generateJWT(user);
+
+      res.json(user);
 
    } catch (e) {
       res.status(400).json({message: e.message, fullError: e});
@@ -48,6 +53,5 @@ const generateJWT = (user) => {
       expiresIn: '1w'
    });
 
-   user.token = token;
-   return user;
+   return token;
 }
