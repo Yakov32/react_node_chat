@@ -9,9 +9,8 @@ import {login} from './../../store/actions/auth';
 import './auth.scss'
 
 
-const Login = (props) => {
+const Login = ({history}) => {
 
-   console.log(props);
    const dispatch = useDispatch();
 
    const [email = '', setEmail] = useState();
@@ -20,7 +19,7 @@ const Login = (props) => {
    const submitForm = (e) => {
       e.preventDefault();
       
-      //dispatch(login({email, password}, history))
+      dispatch(login({email, password}, history))
 
       // AuthService.login({password, email}).then(res => console.log(res)).catch(e => console.log('some error -- ', e.message));
    
