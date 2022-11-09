@@ -1,6 +1,6 @@
 import ABOBA from './api';
 
-export const AuthService = {
+const AuthService = {
    login: (data) => {
       return ABOBA.post('/login', data)
          .then(({ data }) => {
@@ -21,3 +21,5 @@ export const AuthService = {
 
    },
 }
+
+export default AuthService;
