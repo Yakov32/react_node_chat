@@ -1,9 +1,28 @@
-import React from "react";
+import React from 'react';
+import {useState} from 'react';
 import registerImage from './../../assets/images/register.svg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { register } from '../../store/actions/auth';
 
 
 const Register = () => {
+
+   const dispatch = useDispatch();
+   const navigate = useNavigate();
+
+   const [firstName = '', setFirstName] = useState();
+   const [lastName = '', setLastName] = useState();
+   const [email = '', setEmail] = useState();
+   const [password = '', setPassword] = useState();
+   const [gender = '', setGender] = useState('male');
+
+   const submitForm = (e) => {
+      e.preventDefault();
+      console.log({email, password, firstName, lastName, gender})
+      dispatch(register({email, password, firstName, lastName, gender}, navigate))
+   }
+
    return (
       <h1>
          <div id='auth-container'>
@@ -15,25 +34,52 @@ const Register = () => {
                   <div id='form-section'>
                      <h2>Welcome back</h2>
 
-                     <form action="">
+                     <form onSubmit={submitForm}>
                         <div className="input-field mb-1">
-                           <input placeholder="First name"/>
+                           <input 
+                           onChange={e => setFirstName(e.target.value)}
+                           placeholder="First name"
+                           required="required"
+                           value={firstName}
+                           />
                         </div>
                         <div className="input-field mb-1">
-                           <input placeholder="Last name"/>
+                        <input 
+                           onChange={e => setLastName(e.target.value)}
+                           placeholder="Last name"
+                           required="required"
+                           value={lastName}
+                           />
                         </div>
                         <div className="input-field mb-1">
-                           <input placeholder="Email"/>
+                        <input 
+                           onChange={e =>setEmail(e.target.value)}
+                           placeholder="Email"
+                           type='Email'
+                           required="required"
+                           value={email}
+                           />
                         </div>
                         <div className="input-field mb-1">
-                           <select name="gender" id="">
+                           <select 
+                           name="gender" 
+                           id=""
+                           onChange={e => setGender(e.target.value)}
+                           required="required"
+                           value={gender}
+                           >
                               <option value="male">Male</option>
                               <option value="female">Female</option>
                            </select>
                         </div>
                         
                         <div className="input-field mb-2">
-                           <input placeholder="Password"/>
+                        <input 
+                           onChange={e =>setPassword(e.target.value)}
+                           placeholder="Password"
+                           required="required"
+                           value={password}
+                           />
                         </div>
 
                         <button>REGISTER</button>

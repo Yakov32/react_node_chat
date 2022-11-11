@@ -1,13 +1,23 @@
 import AuthService from './../../services/authService';
 
 export const LOGIN = 'LOGIN';
+export const REGISTER = 'REGISTER';
 
-export const login = (params, history) => dispatch => {
+export const login = (params, navigate) => dispatch => {
    return AuthService.login(params)
       .then(data => {
-         console.log(data)
+         console.log('LOGIN --- ', data);
          dispatch({type: LOGIN, payload: data})
-         history.push('/')
+         navigate('/');
       })
       .catch()
+}
+
+export const register = (params, navgiate) => dispatch => {
+   return AuthService.register(params)
+      .then(data => {
+         console.log('REGISTER --- ',data);
+         dispatch({type: REGISTER, payload:data});
+         navgiate('/')
+      })
 }

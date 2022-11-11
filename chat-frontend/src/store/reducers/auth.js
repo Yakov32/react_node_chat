@@ -1,10 +1,11 @@
 import {LOGIN} from './../actions/auth';
+import { REGISTER } from './../actions/auth';
 
 const initialState = {
   user: {
 
   },
-  token: ``,
+  token: `none`,
   isLoggedIn: false, 
 };
 
@@ -20,7 +21,14 @@ const authReducer = (state = initialState, action) => {
             token: payload.token,
             isLoggedIn: true
          }
-      
+      case REGISTER:
+         return {
+            ...state,
+            user: payload,
+            token: payload.token,
+            isLoggedIn: true
+         }
+         
       default: {
          return state
       }
