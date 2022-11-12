@@ -5,22 +5,22 @@ import loginImage from '../../assets/images/login.svg';
 //import AuthService from './../../services/authService';
 import {useDispatch} from 'react-redux';
 import {login} from './../../store/actions/auth';
-import {useNavigate} from 'react-router-dom';
+//import {useNavigate} from 'react-router-dom';
 
 import './auth.scss'
 
 
-const Login = () => {
+const Login = ({history}) => {
 
    const dispatch = useDispatch();
-   const navigate = useNavigate();
+   //const navigate = useNavigate();
 
    const [email = '', setEmail] = useState();
    const [password = '', setPassword] = useState();
 
    const submitForm = (e) => {
       e.preventDefault();
-      dispatch(login({email, password}, navigate))
+      dispatch(login({email, password}, history))
       // AuthService.login({password, email}).then(res => console.log(res)).catch(e => console.log('some error -- ', e.message));
       // const submitForm = (e) => {
       // e.preventDefault();

@@ -1,15 +1,15 @@
 import React from 'react';
 import {useState} from 'react';
 import registerImage from './../../assets/images/register.svg';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { register } from '../../store/actions/auth';
 
 
-const Register = () => {
+const Register = ({history}) => {
 
    const dispatch = useDispatch();
-   const navigate = useNavigate();
+   //const navigate = useNavigate();
 
    const [firstName = '', setFirstName] = useState();
    const [lastName = '', setLastName] = useState();
@@ -20,7 +20,7 @@ const Register = () => {
    const submitForm = (e) => {
       e.preventDefault();
       console.log({email, password, firstName, lastName, gender})
-      dispatch(register({email, password, firstName, lastName, gender}, navigate))
+      dispatch(register({email, password, firstName, lastName, gender}, history))
    }
 
    return (

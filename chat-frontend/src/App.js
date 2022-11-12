@@ -1,26 +1,31 @@
 import React from 'react';
-import Chat from './components/chat/chat';
 import Login from './components/auth/login';
 import Register from './components/auth/register';
-//import ProtectedRoute from './components/auth/router/ProtectedRoute';
-import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import Chat from './components/chat/chat';
+//import ProtectedRoute from './components/Router/ProtectedRoute'
 
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import './App.scss';
 
-function App(props) {
-  return (
-      <Router>
-        <div className="App">
-          <Routes>
-            <Route path='/' element= { <Chat /> } />
-            <Route path='/login' element={ <Login />} />
-            <Route path='/register' element={ <Register />} />
-            <Route path="*" element={ <h1>404 Page not found.</h1> } />
-          </Routes>
-        </div>
-      </Router>
-  );
+// import { library } from '@fortawesome/fontawesome-svg-core'
+// import { faSmile, faImage } from '@fortawesome/free-regular-svg-icons'
+// import { faSpinner, faEllipsisV, faUserPlus, faSignOutAlt, faTrash, faCaretDown, faUpload, faTimes, faBell } from '@fortawesome/free-solid-svg-icons'
+// library.add(faSmile, faImage, faSpinner, faEllipsisV, faUserPlus, faSignOutAlt, faTrash, faCaretDown, faUpload, faTimes, faBell)
+
+function App() {
+    return (
+        <Router>
+            <div className="App">
+                <Switch>
+                    <Route exact path='/' component={Chat} />
+                    <Route path='/login' component={Login} />
+                    <Route path='/register' component={Register} />
+                    <Route render={() => <h1>404 page not found</h1>} />
+                </Switch>
+            </div>
+        </Router>
+    );
 }
 
 export default App;
