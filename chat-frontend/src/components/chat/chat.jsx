@@ -4,12 +4,12 @@ import Navbar from "./components/Navbar";
 
 import './Chat.scss';
 
-const Chat = () => {
+const Chat = (props) => {
    let state = useSelector(state => state);
    console.log('State --- ', state);
    return (
       <div id='chat-container'>
-         <Navbar />
+         <Navbar {...props}/>
          <div id='chat-wrap'></div>
       </div>
    )

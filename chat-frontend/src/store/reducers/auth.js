@@ -1,5 +1,6 @@
-import {LOGIN} from './../actions/auth';
+import { LOGIN } from './../actions/auth';
 import { REGISTER } from './../actions/auth';
+import { LOGOUT } from './../actions/auth';
 
 const initialState = {
   user: {
@@ -19,16 +20,23 @@ const authReducer = (state = initialState, action) => {
             ...state,
             user: payload,
             token: payload.token,
-            isLoggedIn: true
+            isLoggedIn: true,
          }
       case REGISTER:
          return {
             ...state,
             user: payload,
             token: payload.token,
-            isLoggedIn: true
+            isLoggedIn: true,
          }
-         
+      case LOGOUT:
+         console.log('Reducer --- LOGOUT');
+         return {
+            ...state,
+            user: {},
+            token: ``,
+            isLoggedIn: false,
+         }
       default: {
          return state
       }
