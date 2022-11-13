@@ -1,6 +1,7 @@
 'use strict';
 
 const bcrypt = require('bcrypt');
+const config = require('./../config/config');
 
 const {
   Model
@@ -41,7 +42,17 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     gender: DataTypes.STRING,
-    avatar: DataTypes.STRING
+    avatar: {
+      type: DataTypes.STRING,
+        get(){
+          const avatar = this.getDataValue('avatar');
+          const url = `${config.appUrl}:${config.port}`;
+
+          if(!avatar) {
+            return `${url}/${this.getDataValue('gender')}.svg`;
+          }
+        }
+    }
   }, {
     sequelize,
     modelName: 'User',

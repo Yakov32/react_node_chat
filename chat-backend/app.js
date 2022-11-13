@@ -12,5 +12,6 @@ app.options('*', cors());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(require('./routers'));
+app.use(express.static(__dirname + '/public'))
 
-app.listen(config.port, () => console.log(`server is running - http://localhost:${config.port}`));
+app.listen(config.port, () => console.log(`server is running - ${config.appUrl}:${config.port}`));

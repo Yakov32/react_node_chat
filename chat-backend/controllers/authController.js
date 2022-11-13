@@ -24,6 +24,7 @@ exports.login = async (req, res) => {
       }
       
       user = user.toJSON();
+      user
       delete user.password;
       user.token = generateJWT(user);
       
