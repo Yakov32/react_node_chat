@@ -3,8 +3,9 @@ import API from './api';
 const AuthService = {
    login: (data) => {
       return API.post('/login', data)
-         .then(({ data }) => {
-             API.defaults.headers['Authtorization'] = `Bearer ${data.token}`;
+         .then(( {data}) => {
+            console.log(data);
+            setHeadersAndStorage(data);
              console.log('Auth service login method --- authtorizated!');
              //console.log(data);
              return data;
@@ -17,7 +18,7 @@ const AuthService = {
    register: (data) => {
       return API.post('/register', data)
          .then(({data}) => {
-            API.defaults.headers['Authtorization'] = `Bearer ${data.token}`;
+            setHeadersAndStorage(data);
             console.log('Auth service register method --- authtorizated!');
             return data;
          })
@@ -29,7 +30,16 @@ const AuthService = {
    },
    logout: () => {
       API.defaults.headers['Authtorization'] = ``;
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
    },
+}
+
+
+const setHeadersAndStorage = ({user, token}) => {
+   API.defaults.headers['Authtorization'] = `Bearer ${token}`;
+   localStorage.setItem('token', token);
+   localStorage.setItem('user', JSON.stringify(user));
 }
 
 export default AuthService;
