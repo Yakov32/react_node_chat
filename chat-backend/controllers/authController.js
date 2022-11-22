@@ -26,9 +26,9 @@ exports.login = async (req, res) => {
       user = user.toJSON();
       user
       delete user.password;
-      user.token = generateJWT(user);
+      const token = generateJWT(user);
       
-      res.send(user);
+      res.send({user, token});
 
    } catch (error) {
       console.log(error);

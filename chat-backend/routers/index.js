@@ -3,6 +3,7 @@ const router = require('express').Router();
 const User = require('../models/').User;
 
 const authRouter = require('./auth');
+const userRouter = require('./user');
 
 router.get('/', (req, res) => {
    res.send('home screen');
@@ -18,5 +19,6 @@ router.get('/users', async (req, res) => {
 })
 
 router.use('/', authRouter);
+router.use('/user', userRouter);
 
 module.exports = router;
