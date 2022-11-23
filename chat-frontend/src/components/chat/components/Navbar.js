@@ -36,7 +36,7 @@ const Navbar = ({history}) => {
       }
       
       //dispatch
-      console.log(form);
+      console.log('Update profile dispatch mock ----', form);
    }
 
 
