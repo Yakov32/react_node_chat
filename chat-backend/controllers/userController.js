@@ -4,6 +4,13 @@ const sequelize = require('sequelize');
 exports.update = async (req, res) => {
    
    try {
+      console.log('image ---- ',req.file);
+      if(req.file !== undefined) {
+         if(req.file.filename !== undefined && req.file.filename.length !== 0){
+            req.body.avatar = req.file.filename
+         }
+      };
+
       const [rows, result] = await User.update(
          req.body,
          {
@@ -14,8 +21,7 @@ exports.update = async (req, res) => {
             individualHooks: true,
          }
       )
-      console.log('RESULT -- ',result[0].get());
-
+      //console.log('RESULT -- ',result[0].get());
       const user = result[0].get();
       delete user.password;
       res.send(user);
